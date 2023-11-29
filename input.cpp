@@ -35,10 +35,10 @@ void Engine::input() {
         playerOne.stopSitDown();
     }
     if (Keyboard::isKeyPressed(Keyboard::O)) {
-        if (!isKeyPressed) {
-            keyPressTimer.restart();
-            isKeyPressed = true;
-        }
+        // if (!isKeyPressed) {
+        //     keyPressTimer.restart();
+        //     isKeyPressed = true;
+        // }
 
         if (playerOne.sitDown)
             playerOne.attackSitDown();

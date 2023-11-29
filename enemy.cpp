@@ -1,5 +1,6 @@
 #include "enemy.hpp"
 #include "math.h"
+#include "iostream"
 
 Enemy::Enemy(){
     rigth = true;
@@ -18,20 +19,23 @@ Sprite Enemy::getSprite(){
 }
 
 void  Enemy::findGlagiator(Vector2f position){
-    if (position.x > Enemy::position.x){
-        rigth = true;
-        left = false;
-        speed = 125;
-    } else if (abs(position.x - Enemy::position.x) < 0.1) {
-        Enemy::position.x = position.x;
-        left = false;
-        rigth = false;
-        speed = 0;
-    }else if (position.x < Enemy::position.x)  {
-        left = true;
-        rigth = false;
-        speed = 175;
-    }
+    //std::cout<<position.x << "  " << Enemy::position.x << std::endl;
+    //if (position.y == Enemy::position.y){
+        if (position.x > Enemy::position.x ){
+            rigth = true;
+            left = false;
+            speed = 125;
+        } else if (abs(position.x - Enemy::position.x) < 0.1) {
+            Enemy::position.x = position.x;
+            left = false;
+            rigth = false;
+            speed = 0;
+        }else if (position.x < Enemy::position.x)  {
+            left = true;
+            rigth = false;
+            speed = 175;
+        }
+    //}
 }
 
 void Enemy::go(){
@@ -54,13 +58,13 @@ void Enemy::update(float elasedTime,Vector2f positionA){
         position.x += elasedTime * speed;
     if(left)
         position.x -= elasedTime * speed;
-    if (position.x > 1200){
-        position.x = 1200;
+    if (position.x > 1250){
+        position.x = 1250;
         rigth = false;
         left = true;
     }
-    if (position.x < 0){
-        position.x = 0;
+    if (position.x < -50){
+        position.x = -50;
         left = false;
         rigth = true;
     }

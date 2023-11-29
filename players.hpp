@@ -29,12 +29,15 @@ class Players {
         void stamin();
         void attackStand();
         void stopAttackStand();
+        void getDamage(bool goRigth);
         Sprite getSprite();
+        void getMidle();
         Vector2f position;
-        static Vector2f getPosition();
-
+        Vector2f positionMidle;
 
     private:
+        bool enemyGoRigth;
+        bool getDamageFlag;
         double staminCount;
         float ground;
         Texture texture;
@@ -44,4 +47,5 @@ class Players {
         float m_speed;
         bool offsetFlagSit;
         bool offsetFlagStand;
+        Clock timerDamage;
 };

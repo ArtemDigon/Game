@@ -108,6 +108,17 @@ void Players::attackSitDown(){
 
 }
 
+void Players::getDamage(bool goRight){
+    if (goRight)
+        sprite.setTextureRect(IntRect(160,200,-160,175));
+    else
+        sprite.setTextureRect(IntRect(0,200,160,175));
+
+    getDamageFlag = true;
+    dy = -25;
+    timerDamage.restart();
+    enemyGoRigth = goRight;
+}
 
 void Players::attackStand(){
         attack = true;
@@ -148,6 +159,9 @@ void Players::stopAttackStand(){
 
 
 }
+// void Players:: getMidle(){
+//     positionMidle = sprite.getOrigin();
+// }
 
 void Players:: update(float elapsedtime) {
 
@@ -175,6 +189,24 @@ void Players:: update(float elapsedtime) {
         dy = 0;
         onGround = true;
         defaultPosition();
+    }
+    if (getDamageFlag){
+        dy +=90 * elapsedtime;
+        onGround = false;
+        position.y +=dy * elapsedtime * 35;
+        if (enemyGoRigth){
+            position.x += 1.5*  elapsedtime * m_speed;
+            if (position.x > 1200)
+                position.x = 1200;
+        }
+        else{
+           position.x += -1.5 *  elapsedtime * m_speed;
+           if (position.x < 0)
+                position.x = 0;
+        }
+        if (timerDamage.getElapsedTime().asSeconds() > 0.5f)
+            getDamageFlag = false;
+            //defaultPosition();
     }
     sprite.setPosition(position);
 }

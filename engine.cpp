@@ -17,13 +17,9 @@ void Engine::start() {
         Time dt = clock.restart();
         float dtAsSeconds = dt.asSeconds();
 
-        find();
         input();
+        interaction();
         update(dtAsSeconds);
         draw();
     }
-}
-
-void Engine::find() {
-    enemy.findGlagiator(playerOne.position);
 }

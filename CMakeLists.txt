@@ -8,7 +8,7 @@ message(STATUS "OS: ${CMAKE_SYSTEM_NAME}")
 # example:
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 #   add_executable(myapp ...)
-add_executable(main main.cpp players.cpp players.hpp engine.cpp engine.hpp updata.cpp draw.cpp input.cpp enemy.cpp enemy.hpp)
+add_executable(main main.cpp players.cpp players.hpp engine.cpp engine.hpp updata.cpp draw.cpp input.cpp enemy.cpp enemy.hpp interaction.cpp)
 target_link_libraries(main sfml-graphics sfml-window sfml-system)
 
 #if (NOT SFML_FIND_COMPONENTS)
