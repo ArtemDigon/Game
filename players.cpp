@@ -120,7 +120,12 @@ void Players::getDamage(bool goRight){
     enemyGoRigth = goRight;
 }
 
+void Players::hittingTheEnemy(){
+    deadDragons++;
+}
+
 void Players::attackStand(){
+
         attack = true;
         m_speed = 0;
         if (dx == 1){
@@ -191,7 +196,7 @@ void Players:: update(float elapsedtime) {
         defaultPosition();
     }
     if (getDamageFlag){
-        dy +=90 * elapsedtime;
+        //dy +=90 * elapsedtime;
         onGround = false;
         position.y +=dy * elapsedtime * 35;
         if (enemyGoRigth){

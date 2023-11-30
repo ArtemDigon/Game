@@ -32,10 +32,12 @@ class Players {
         void getDamage(bool goRigth);
         Sprite getSprite();
         void getMidle();
+        void hittingTheEnemy();
         Vector2f position;
         Vector2f positionMidle;
 
     private:
+        int deadDragons;
         bool enemyGoRigth;
         bool getDamageFlag;
         double staminCount;

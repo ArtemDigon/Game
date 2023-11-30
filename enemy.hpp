@@ -15,8 +15,16 @@ class Enemy{
         void update(float elasedTime,Vector2f position);
         bool rigth;
         bool left;
+        void getDamage(bool rigthSide);
 
     private:
+        int ground;
+        Clock damageTimer;
+        bool getDamageFlag;
+        double dy;
+        bool onGround;
+        bool glagiatorGoRigth;
+        int hp;
         double currentFrame;
         Texture texture;
         Sprite sprite;
