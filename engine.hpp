@@ -13,12 +13,10 @@ class Engine {
         Sprite backGroundSprite;
         Players playerOne;
         Enemy enemy;
-        Clock timeDamageDrago;
-        bool canDamage;
 
-         void input();
-         void update(float dtAsSeconds);
-         void draw();
-         void interaction();
+        void input();
+        void update(float dtAsSeconds);
+        void draw();
+        void interaction();
 
 };

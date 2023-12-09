@@ -6,7 +6,6 @@ class Players {
 
     public:
         float dx,dy;
-        FloatRect rect;
         float currentFrame;
         bool onGround;
         bool sitDown;
@@ -26,18 +25,22 @@ class Players {
         void stopSitDown();
         void attackSitDown();
         void stopAttackSitDown();
-        void stamin();
         void attackStand();
         void stopAttackStand();
         void getDamage(bool goRigth);
         Sprite getSprite();
-        void getMidle();
-        void hittingTheEnemy();
         Vector2f position;
-        Vector2f positionMidle;
+        Clock timeDamageGlagiator;
+        bool canDamage;
+        bool gladiatorDead;
+        //int getGround(int ground);
+
 
     private:
-        int deadDragons;
+        int leftBorder;
+        int rigthBorder;
+        void dead();
+        int hp;
         bool enemyGoRigth;
         bool getDamageFlag;
         double staminCount;

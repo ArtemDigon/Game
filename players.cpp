@@ -1,13 +1,17 @@
 #include "players.hpp"
+
 Players::Players() {
+    hp = 10;
     onGround = true;
-    float cur = 0;
+    float //cur = 0;
     dx = dy = 0;
-    ground = 700;
+    ground = 530;
     m_speed = 250;
+    leftBorder = 0;
+    rigthBorder = 1300;
     position.x = 500;
-    position.y = 700;
-    texture.loadFromFile("/Users/artem/Cplusplus/SFML_engine/texturs/Спрайт_Гладиатор.png");
+    position.y = VideoMode::getDesktopMode().height/3;
+    texture.loadFromFile("../texturs/Спрайт_Гладиатор.png");
     sprite.setTexture(texture);
     sprite.setTextureRect( IntRect(0,0,136,200));
 }
@@ -25,7 +29,7 @@ void Players::goLeft() {
         currentFrame = 0;
     }
     if (position.y == ground) {
-        sprite.setTextureRect( IntRect(136 * (int)floor(currentFrame) + 136, 0, -136, 200));//* int(currentFrame) + 250
+        sprite.setTextureRect( IntRect(136 * (int)floor(currentFrame) + 136, 0, -136, 200));
     }
 }
 
@@ -49,7 +53,7 @@ void Players::goRight() {
        currentFrame = 0;
     }
     if (position.y == ground) {
-        sprite.setTextureRect( IntRect(136 * (int)floor(currentFrame), 0, 136, 200));//* int(currentFrame)
+        sprite.setTextureRect( IntRect(136 * (int)floor(currentFrame), 0, 136, 200));
     }
 
 }
@@ -118,14 +122,54 @@ void Players::getDamage(bool goRight){
     dy = -25;
     timerDamage.restart();
     enemyGoRigth = goRight;
+    hp -= 1;
 }
 
-void Players::hittingTheEnemy(){
-    deadDragons++;
+void Players::dead(){
+    if (hp == 0){
+        m_LeftPressed = false;
+        m_RightPressed = false;
+        attack = false;
+        attackSit = false;
+        gladiatorDead = true;
+        currentFrame += 0.004;
+        if (dx > 0) {
+            switch ((int)floor(currentFrame))
+            {
+            case 0:
+                sprite.setTextureRect(IntRect(0,795,180,175));
+                break;
+            case 1:
+                sprite.setTextureRect(IntRect(180,795,145,175));
+                break;
+            case 2:
+                sprite.setTextureRect(IntRect(325,795,200,175));
+                break;
+            default:
+                sprite.setTextureRect(IntRect(525,795,215,175));
+                break;
+            }
+        }else{
+            switch ((int)floor(currentFrame))
+            {
+            case 0:
+                sprite.setTextureRect(IntRect(180,795,-180,175));
+                break;
+            case 1:
+                sprite.setTextureRect(IntRect(325,795,-145,175));
+                break;
+            case 2:
+                sprite.setTextureRect(IntRect(525,795,-200,175));
+                break;
+            default:
+                sprite.setTextureRect(IntRect(740,795,-215,175));
+                break;
+            }
+        }
+    }
 }
 
 void Players::attackStand(){
-
         attack = true;
         m_speed = 0;
         if (dx == 1){
@@ -153,7 +197,6 @@ void Players::stopAttackStand(){
     if (offsetFlagStand){
         offsetFlagStand = false;
         position.x +=120;
-
     }
     if (attack) {
         m_speed = 250;
@@ -161,12 +204,8 @@ void Players::stopAttackStand(){
         offsetFlagStand = false;
         defaultPosition();
     }
-
-
 }
-// void Players:: getMidle(){
-//     positionMidle = sprite.getOrigin();
-// }
+
 
 void Players:: update(float elapsedtime) {
 
@@ -176,13 +215,13 @@ void Players:: update(float elapsedtime) {
 
     if (m_RightPressed && !(m_LeftPressed)) {
         position.x += elapsedtime * m_speed;
-            if (position.x > 1200)
-                position.x = 1200;
+            if (position.x > rigthBorder)
+                position.x = rigthBorder;
     }
     if (m_LeftPressed && !(m_RightPressed)) {
         position.x -= elapsedtime * m_speed;
-            if (position.x < 0)
-                position.x = 0;
+            if (position.x < leftBorder)
+                position.x = leftBorder;
     }
     if (onGround == false) {
         dy +=90 * elapsedtime;
@@ -201,17 +240,18 @@ void Players:: update(float elapsedtime) {
         position.y +=dy * elapsedtime * 35;
         if (enemyGoRigth){
             position.x += 1.5*  elapsedtime * m_speed;
-            if (position.x > 1200)
-                position.x = 1200;
+            if (position.x > rigthBorder)
+                position.x = rigthBorder;
         }
         else{
            position.x += -1.5 *  elapsedtime * m_speed;
-           if (position.x < 0)
-                position.x = 0;
+           if (position.x < leftBorder)
+                position.x = leftBorder;
         }
         if (timerDamage.getElapsedTime().asSeconds() > 0.5f)
             getDamageFlag = false;
             //defaultPosition();
     }
+    dead();
     sprite.setPosition(position);
 }

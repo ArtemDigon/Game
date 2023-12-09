@@ -16,15 +16,19 @@ class Enemy{
         bool rigth;
         bool left;
         void getDamage(bool rigthSide);
+        Clock timeDamageDrago;
+        bool canDamage;
+        bool deadDrado;
 
     private:
+        void dead();
+        int hp;
         int ground;
         Clock damageTimer;
         bool getDamageFlag;
         double dy;
         bool onGround;
         bool glagiatorGoRigth;
-        int hp;
         double currentFrame;
         Texture texture;
         Sprite sprite;
